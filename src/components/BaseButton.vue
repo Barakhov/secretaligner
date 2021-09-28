@@ -1,15 +1,6 @@
 <template>
   <button class="base-button">
-    <img src="@/assets/icons/plus.svg" />
-
-    <!-- <svg viewBox="0 0 32 32">
-      <use
-        v-bind="{
-          'xlink:href': '@/assets/icons/sprite.svg#work',
-        }"
-      ></use>
-    </svg> -->
-
+    <i class="fas" :class="[{ fa: true }, icon ? 'fa-' + icon : '']"></i>
     <span>{{ text }}</span>
   </button>
 </template>
@@ -19,6 +10,10 @@ export default {
   username: "BaseButton",
   props: {
     text: {
+      type: String,
+      default: "",
+    },
+    icon: {
       type: String,
       default: "",
     },
@@ -47,11 +42,8 @@ export default {
     color: $clr-white;
   }
 
-  img {
+  i {
     margin-right: 15px;
-    max-width: 15px;
-    max-height: 15px;
-    display: inline-block;
   }
 }
 </style>

@@ -1,13 +1,12 @@
 <template>
   <header class="base-header">
     <div class="base-header__user">
-      <span class="base-header__user__icon">
-        <img src="@/assets/icons/user.svg" alt="user icon" />
+      <span class="base-header__user__icon d-f ai-c jc-c">
+        <i class="base-header__user__arrow far fa-user"></i>
       </span>
+
       <span class="base-header__user__name">{{ username }}</span>
-      <span class="base-header__user__arrow">
-        <img src="@/assets/icons/arrow-down.svg" alt="arrow down icon" />
-      </span>
+      <i class="base-header__user__arrow fas fa-chevron-down"></i>
     </div>
   </header>
 </template>
@@ -38,19 +37,15 @@ export default {
     cursor: pointer;
 
     &__icon {
-      border: 1px solid $clr-white;
+      border: 2px solid $clr-white;
       border-radius: 100%;
-      padding: 10px;
+      width: 38px;
+      height: 38px;
     }
 
     &__name {
       font-size: 14px;
       padding: 0 10px;
-    }
-
-    img {
-      width: 12px;
-      height: 12px;
     }
   }
 }
