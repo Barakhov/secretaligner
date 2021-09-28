@@ -5,16 +5,20 @@
         <BaseHeader username="Dr. Pablo Kehyaian" />
       </div>
       <div class="sidenav">
-        <!-- placeholder -->
-        <div class="sidenav-component"></div>
+        <div class="sidenav-component">
+          <!-- placeholder -->
+        </div>
       </div>
       <main class="main">
+        <!-- start breadcrumb -->
         <ul class="breadcrumb">
           <li class="breadcrumb-item">Listado de Pacientes</li>
         </ul>
+        <!-- end breadcrumb -->
 
         <div class="container">
           <div class="d-f ai-c jc-sb">
+
             <!-- start title -->
             <div class="title">
               <i class="far fa-address-card title__icon"></i>
@@ -24,15 +28,16 @@
               </div>
             </div>
             <!-- end title -->
-            <input class="search-input" placeholder="Buscar" type="text" />
+
+            <BaseInput @dosearch="filterResults" />
           </div>
 
           <div class="d-f ai-c">
-            <BaseButton text="Nuevo Paciente" icon="plus" />
-            <BaseButton text="Descargar CSV" icon="file-download" />
+            <BaseButton class="primary" text="Nuevo Paciente" icon="plus" />
+            <BaseButton class="primary" text="Descargar CSV" icon="file-download" />
           </div>
 
-          <BaseTable :list="pacientesArr" />
+          <BaseTable :list="pacientesArrFiltered" />
         </div>
       </main>
     </div>
@@ -44,11 +49,13 @@ import pacientes from "./data/pacientes.json";
 import BaseHeader from "@/components/BaseHeader.vue";
 import BaseButton from "@/components/BaseButton.vue";
 import BaseTable from "@/components/BaseTable.vue";
+import BaseInput from "@/components/BaseInput.vue";
 
 export default {
   data() {
     return {
       pacientes,
+      searchString: "",
     };
   },
   name: "App",
@@ -56,22 +63,46 @@ export default {
     BaseHeader,
     BaseButton,
     BaseTable,
+    BaseInput,
   },
   computed: {
     pacientesArr: function () {
       let res = [];
       const keys = Object.keys(this.pacientes);
       keys.forEach((key) => {
+        this.pacientes[key].datos_paciente.iniciales =
+          this.pacientes[key].datos_paciente.nombre.charAt(0).toUpperCase() +
+          this.pacientes[key].datos_paciente.apellidos.charAt(0).toUpperCase();
         res.push({ id: key, ...this.pacientes[key] });
       });
       return res;
+    },
+    pacientesArrFiltered: function () {
+      if (this.searchString === "") {
+        return this.pacientesArr;
+      } else {
+        return this.pacientesArr.filter((el) => {
+          return (
+            (
+              el.datos_paciente.nombre.toLowerCase() +
+              " " +
+              el.datos_paciente.apellidos.toLowerCase()
+            ).indexOf(this.searchString) > -1
+          );
+        });
+      }
+    },
+  },
+  methods: {
+    filterResults: function (searchstring) {
+      this.searchString = searchstring.toLowerCase();
     },
   },
 };
 </script>
 
 <style lang="scss">
-#app {
-  // to fix: does not accept style import if empty
+.base-button:last-of-type {
+  margin-left: 30px;
 }
 </style>

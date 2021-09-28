@@ -4,7 +4,7 @@ body {
 
 .grid {
   display: grid;
-  grid-template-columns: 50px 1fr;
+  grid-template-columns: 300px 1fr;
   grid-template-rows: $header-height 1fr;
   gap: 0px 0px;
   grid-auto-flow: row;
@@ -23,7 +23,6 @@ body {
 
 .main {
   grid-area: main;
-
   min-height: calc(100vh - $header-height);
   display: block;
 }
@@ -41,11 +40,11 @@ body {
 }
 
 // start title
-
 .title {
-  margin: 20px 0;
+  width: 100%;
   display: flex;
   align-items: center;
+  margin: 20px 0;
 
   &__icon {
     font-size: 20px;
@@ -63,17 +62,8 @@ body {
     }
   }
 }
-
 // end title
 
-.search-input {
-  width: 100%;
-  max-width: 530px;
-  background-color: $clr-light-grey;
-  border-radius: 5px;
-  padding: 15px;
-  border: none;
-}
 
 // temporary / placeholder
 .sidenav-component {

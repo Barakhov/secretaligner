@@ -2,7 +2,10 @@
 @import "abstracts/variables.scss"; 
 
 @import "base/reset.scss"; 
-@import "base/typography.scss"; 
+@import "base/typography.scss";
+
+@import "components/button.scss";
 
 @import "layout/general.scss"; 
+
 @import "utils/flex-helpers.scss"; 
