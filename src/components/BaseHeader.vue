@@ -1,5 +1,5 @@
 <template>
-  <header class="base-header">
+  <header class="base-header d-f ai-c jc-fe">
     <div class="base-header__user">
       <span class="base-header__user__icon d-f ai-c jc-c">
         <i class="base-header__user__arrow far fa-user"></i>
@@ -22,14 +22,13 @@ export default {
 
 <style lang="scss" scoped>
 .base-header {
+  position: fixed;
   width: 100%;
   height: $header-height;
   background-color: $clr-dark-grey;
   color: $clr-white;
   padding: 0 55px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
+  z-index: 2;
 
   &__user {
     display: flex;

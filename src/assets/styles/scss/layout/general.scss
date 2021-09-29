@@ -24,7 +24,7 @@ body {
 
 .grid {
   display: grid;
-  grid-template-columns: 50px 1fr;
+  grid-template-columns: 50px 1fr; // should be 250px 1fr
   grid-template-rows: $header-height 1fr;
   gap: 0px 0px;
   grid-auto-flow: row;
@@ -59,32 +59,13 @@ body {
   padding: 40px;
 }
 
-// start title
-.title {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  margin: 20px 0;
-
-  &__icon {
-    font-size: 20px;
-    margin-right: 15px;
-  }
-
-  &__text {
-    &__main {
-      font-size: 1.5em;
-      color: $clr-dark-grey;
-    }
-
-    &__secondary {
-      color: $clr-mid-grey;
-    }
-  }
+.selected {
+  background-color: $clr-primary;
+  color: $clr-white;
 }
-// end title
 
 // temporary / placeholder
+
 .sidenav-component {
   height: 100%;
   background-color: $clr-white;

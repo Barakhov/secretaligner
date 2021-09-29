@@ -38,3 +38,7 @@ input[type="checkbox"] {
   margin-bottom: 0;
 }
 
+::placeholder {
+  color: $clr-black;
+
+}

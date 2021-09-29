@@ -88,7 +88,10 @@
           {{ item.ficha_dental.objetivo_tratamiento }}
         </div>
         <div class="table-cell">
-          <div class="state" :class="`state--${item.ficha_dental.estado}`">
+          <div
+            class="table-cell__state"
+            :class="`table-cell__state--${item.ficha_dental.estado}`"
+          >
             {{
               item.ficha_dental.estado.charAt(0).toUpperCase() +
               item.ficha_dental.estado.slice(1)
@@ -218,7 +221,6 @@ export default {
   &--cards-view {
     display: flex;
     flex-wrap: wrap;
-    // justify-content: space-between;
 
     .table-row {
       flex: 0 1 100%;
@@ -330,20 +332,19 @@ export default {
     font-weight: 700;
     margin: 0 8px 0 0;
     padding: 0 4px;
-    min-width: 20px;
+    min-width: 25px;
     text-align: center;
     transition: all 0.15s ease-in-out;
     border-radius: 2px;
 
-    &:hover,
-    &.selected {
+    &:hover {
       background-color: $clr-primary;
       color: $clr-white;
     }
   }
 }
 
-.state {
+.table-cell__state {
   padding: 8px 18px;
   border-radius: 20px;
   color: $clr-white;
@@ -382,16 +383,16 @@ export default {
 
     &:first-child {
       border-left: 1px solid $clr-mid-grey;
-      border-top-left-radius: 10px;
-      border-bottom-left-radius: 10px;
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
     }
     &:last-child {
       border-right: 1px solid $clr-mid-grey;
-      border-top-right-radius: 10px;
-      border-bottom-right-radius: 10px;
+      border-top-right-radius: 5px;
+      border-bottom-right-radius: 5px;
     }
 
-    &.selected {
+    &:hover {
       background-color: $clr-primary;
       color: $clr-white;
     }

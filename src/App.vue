@@ -12,22 +12,16 @@
       <main class="main">
         <!-- start breadcrumb -->
         <ul class="breadcrumb">
-          <li class="breadcrumb-item">Listado de Pacientes</li>
+          <li class="breadcrumb-item">{{ pageTitle }}</li>
         </ul>
         <!-- end breadcrumb -->
 
         <div class="container">
           <div class="d-f ai-c jc-sb">
-            <!-- start title -->
-            <div class="title">
-              <i class="far fa-address-card title__icon"></i>
-              <div class="title__text">
-                <h1 class="title__text__main">Listado de Pacientes</h1>
-                <p class="title__text__secondary">Visualización de pacientes</p>
-              </div>
-            </div>
-            <!-- end title -->
-
+            <BaseTitle>
+              {{ pageTitle }}
+              <template v-slot:secondary> Visualización de pacientes </template>
+            </BaseTitle>
             <BaseSearch @dosearch="filterResults" />
           </div>
 
@@ -46,7 +40,6 @@
               />
             </download-csv>
           </div>
-
           <BaseTable :list="pacientesArrFiltered" />
         </div>
       </main>
@@ -62,6 +55,7 @@
         <fieldset class="d-f">
           <input type="date" />
           <select name="sexo">
+            <option disabled selected>Selecciona una opción</option>
             <option value="m">Masculino</option>
             <option value="f">Femenino</option>
           </select>
@@ -81,7 +75,7 @@
             >¿SecretRetainer?</label
           >
         </fieldset>
-        <div class="w100 mt20 mb20 px5 d-f ai-c jc-sb">
+        <div class="w100 bt-separator mb20 px5 d-f ai-c jc-sb">
           <BaseButton small text="Guardar" />
           <BaseButton small text="Cancelar" />
           <BaseButton small text="Limpiar" />
@@ -98,6 +92,7 @@ import BaseButton from "@/components/BaseButton.vue";
 import BaseTable from "@/components/BaseTable.vue";
 import BaseSearch from "@/components/BaseSearch.vue";
 import BaseModal from "@/components/BaseModal.vue";
+import BaseTitle from "@/components/BaseTitle.vue";
 
 export default {
   data() {
@@ -105,6 +100,7 @@ export default {
       pacientes,
       searchString: "",
       isModalVisible: false,
+      pageTitle: "Listado de Pacientes",
     };
   },
   name: "App",
@@ -114,6 +110,7 @@ export default {
     BaseTable,
     BaseSearch,
     BaseModal,
+    BaseTitle,
   },
   computed: {
     pacientesArr: function () {

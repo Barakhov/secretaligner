@@ -2,7 +2,7 @@
   <div class="base-dropdown">
     <button
       @click="toggle"
-      v-click-outside="hide"
+      v-click-outside="close"
       class="base-button__dropdown base-button d-f jc-sb"
     >
       <span>{{ text }}</span>
@@ -48,12 +48,12 @@ export default {
     show: function () {
       this.isOpen = true;
     },
-    hide: function () {
+    close: function () {
       this.isOpen = false;
     },
     set: function (option) {
       this.selected = option;
-      this.hide();
+      this.close();
     },
   },
   directives: {

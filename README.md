@@ -1,4 +1,6 @@
-# secretaligner
+# Listado de Pacientes - Secret Aligner
+
+## Tiempo estimado dedicado a la prueba: **10h**
 
 ## Project setup
 ```
