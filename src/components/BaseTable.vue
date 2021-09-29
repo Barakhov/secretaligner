@@ -13,9 +13,28 @@
       >
         <i class="fas fa-th-large"></i>
       </li>
-      <li>5</li>
-      <li>10</li>
-      <li>15</li>
+      <li
+        @click="setItemsPerPage(item.items)"
+        :class="item.selected ? 'selected' : ''"
+        v-for="item in itemsPerPageArr"
+        :key="item.items"
+      >
+        {{ item.items }}
+      </li>
+    </ul>
+    <p>
+      {{ currentPage }}
+      of
+      {{ totalPages }}
+    </p>
+    <ul>
+      <li
+        v-for="page in totalPages"
+        :key="page"
+        :class="currentPage === page ? 'selected' : ''"
+      >
+        <span @click="setPage(page)">{{ page }}</span>
+      </li>
     </ul>
     <ul
       class="table"
@@ -43,7 +62,11 @@
           <i class="fas fa-sort"></i>
         </div>
       </li>
-      <li class="table-row" v-for="item in list" :key="item.id">
+      <li
+        class="table-row"
+        v-for="item in list.slice(sliceStart, sliceEnd)"
+        :key="item.id"
+      >
         <div class="table-cell table-cell--name">
           <div class="d-f">
             <div
@@ -87,8 +110,16 @@
           </div>
         </div>
         <div class="table-cell">
-          <div class="base-button">
-            Acciones
+          <BaseDropdown
+            :optionList="['Editar', 'Finalizar', 'Borrar']"
+            v-show="viewMode === 'table'"
+            text="Acciones"
+          />
+
+          <div v-show="viewMode === 'cards'" class="w100 mt20 d-f ai-c jc-sa">
+            <BaseButton small text="Editar" />
+            <BaseButton small text="Finalizar" />
+            <BaseButton small text="Borrar" />
           </div>
         </div>
       </li>
@@ -97,11 +128,33 @@
 </template>
 
 <script>
+import BaseDropdown from "@/components/BaseDropdown.vue";
+import BaseButton from "@/components/BaseButton.vue";
+
 export default {
   username: "BaseTable",
+  components: {
+    BaseDropdown,
+    BaseButton,
+  },
   data() {
     return {
       viewMode: "table",
+      currentPage: 1,
+      itemsPerPageArr: [
+        {
+          items: 5,
+          selected: false,
+        },
+        {
+          items: 10,
+          selected: true,
+        },
+        {
+          items: 15,
+          selected: false,
+        },
+      ],
     };
   },
   props: {
@@ -110,6 +163,31 @@ export default {
   methods: {
     toggleViewMode(view) {
       this.viewMode = view;
+    },
+    setItemsPerPage(item) {
+      this.itemsPerPageArr.filter((el) => el.selected)[0].selected = false;
+      this.itemsPerPageArr.filter((el) => el.items === item)[0].selected = true;
+      this.currentPage = 1;
+    },
+    setPage(page) {
+      this.currentPage = page;
+    },
+  },
+  computed: {
+    itemsPerPage: function () {
+      return this.itemsPerPageArr.filter((el) => el.selected)[0].items;
+    },
+    totalItems: function () {
+      return this.list.length;
+    },
+    totalPages: function () {
+      return Math.ceil(this.totalItems / this.itemsPerPage);
+    },
+    sliceStart: function () {
+      return (this.currentPage - 1) * this.itemsPerPage;
+    },
+    sliceEnd: function () {
+      return (this.currentPage - 1) * this.itemsPerPage + this.itemsPerPage - 1;
     },
   },
 };
@@ -135,12 +213,13 @@ export default {
   &--cards-view {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    // justify-content: space-between;
 
     .table-row {
       flex: 0 1 100%;
+      padding: 5px;
+      margin: 0 1% 20px 1%;
       border-top: 1px solid $clr-light-grey;
-      margin-bottom: 30px;
       box-shadow: 0px 3px 7px -5px $clr-dark-grey;
       background-color: $clr-ultra-light-grey;
 
@@ -148,12 +227,11 @@ export default {
         flex: 0 1 48%;
       }
       @media (min-width: 768px) {
-        flex: 0 1 32%;
+        flex: 0 1 31%;
       }
       @media (min-width: 1024px) {
-        flex: 0 1 24%;
+        flex: 0 1 23%;
       }
-
     }
 
     .table-cell--name {

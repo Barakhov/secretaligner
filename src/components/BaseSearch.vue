@@ -13,7 +13,7 @@
 
 <script>
 export default {
-  username: "BaseInput",
+  username: "BaseSearch",
   data() {
     return {
       searchString: "",
@@ -39,7 +39,7 @@ export default {
   &__icon {
     position: absolute;
     top: 50%;
-    left: 20px;
+    left: 30px;
     font-size: 18px;
     transform: translateY(-50%);
     color: $clr-dark-grey;

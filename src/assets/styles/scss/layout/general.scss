@@ -4,7 +4,7 @@ body {
 
 .grid {
   display: grid;
-  grid-template-columns: 300px 1fr;
+  grid-template-columns: 50px 1fr;
   grid-template-rows: $header-height 1fr;
   gap: 0px 0px;
   grid-auto-flow: row;

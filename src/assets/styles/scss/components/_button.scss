@@ -1,27 +1,42 @@
 .base-button {
   cursor: pointer;
   background-color: $clr-white;
-  border: 2px solid;
+  border: 1px solid $clr-mid-grey;
   border-radius: 5px;
-  padding: 15px;
+  padding: 10px 15px;
 
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: bold;
 
   transition: all 0.25s ease-in-out;
 
+  &:hover {
+    background-color: $clr-light-grey;
+  }
+
+  &--small {
+    border-radius: 3px;
+    padding: 5px 10px;
+    font-size: 14px;
+  }
+
   &.primary {
+    font-weight: 700;
     color: $clr-primary;
-    border-color: $clr-primary;
+    border: 2px solid $clr-primary;
+
     &:hover {
       background-color: $clr-primary;
       color: $clr-white;
     }
   }
 
-  i {
+  &__icon-left {
     margin-right: 15px;
+  }
+
+  &__icon-right {
+    margin-left: 15px;
   }
 }

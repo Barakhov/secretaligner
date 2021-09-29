@@ -18,7 +18,6 @@
 
         <div class="container">
           <div class="d-f ai-c jc-sb">
-
             <!-- start title -->
             <div class="title">
               <i class="far fa-address-card title__icon"></i>
@@ -29,18 +28,50 @@
             </div>
             <!-- end title -->
 
-            <BaseInput @dosearch="filterResults" />
+            <BaseSearch @dosearch="filterResults" />
           </div>
 
           <div class="d-f ai-c">
-            <BaseButton class="primary" text="Nuevo Paciente" icon="plus" />
-            <BaseButton class="primary" text="Descargar CSV" icon="file-download" />
+            <BaseButton
+              @click="showModal"
+              class="primary"
+              text="Nuevo Paciente"
+              icon="plus"
+            />
+            <BaseButton
+              class="primary"
+              text="Descargar CSV"
+              icon="file-download"
+            />
           </div>
 
           <BaseTable :list="pacientesArrFiltered" />
         </div>
       </main>
     </div>
+    <BaseModal v-show="isModalVisible" @close="closeModal">
+      <form>
+
+          <fieldset class="d-f">
+            <input type="text" placeholder="Nombre" />
+            <input type="text" placeholder="Apellidos" />
+          </fieldset>
+
+
+          <fieldset class="d-f">
+            <input type="date" />
+            <select name="sexo">
+              <option value="m">Masculino</option>
+              <option value="f">Femenino</option>
+            </select>
+          </fieldset>
+
+          <fieldset class="d-f">
+            <textarea name="" id="" cols="30" rows="3"></textarea>
+          </fieldset>
+
+      </form>
+    </BaseModal>
   </div>
 </template>
 
@@ -49,13 +80,15 @@ import pacientes from "./data/pacientes.json";
 import BaseHeader from "@/components/BaseHeader.vue";
 import BaseButton from "@/components/BaseButton.vue";
 import BaseTable from "@/components/BaseTable.vue";
-import BaseInput from "@/components/BaseInput.vue";
+import BaseSearch from "@/components/BaseSearch.vue";
+import BaseModal from "@/components/BaseModal.vue";
 
 export default {
   data() {
     return {
       pacientes,
       searchString: "",
+      isModalVisible: false,
     };
   },
   name: "App",
@@ -63,7 +96,8 @@ export default {
     BaseHeader,
     BaseButton,
     BaseTable,
-    BaseInput,
+    BaseSearch,
+    BaseModal,
   },
   computed: {
     pacientesArr: function () {
@@ -97,12 +131,20 @@ export default {
     filterResults: function (searchstring) {
       this.searchString = searchstring.toLowerCase();
     },
+    showModal: function () {
+      this.isModalVisible = true;
+    },
+    closeModal: function () {
+      this.isModalVisible = false;
+    },
   },
 };
 </script>
 
 <style lang="scss">
-.base-button:last-of-type {
-  margin-left: 30px;
+@import "@/assets/styles/scss/components/_forms.scss";
+
+.base-button.primary:first-child {
+  margin-right: 30px;
 }
 </style>
