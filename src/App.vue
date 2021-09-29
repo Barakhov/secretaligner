@@ -38,11 +38,13 @@
               text="Nuevo Paciente"
               icon="plus"
             />
-            <BaseButton
-              class="primary"
-              text="Descargar CSV"
-              icon="file-download"
-            />
+            <download-csv :data="pacientesArrCSV">
+              <BaseButton
+                class="primary"
+                text="Descargar CSV"
+                icon="file-download"
+              />
+            </download-csv>
           </div>
 
           <BaseTable :list="pacientesArrFiltered" />
@@ -50,26 +52,40 @@
       </main>
     </div>
     <BaseModal v-show="isModalVisible" @close="closeModal">
+      <h2 class="ta-c mb20">Añadir Nuevo Paciente</h2>
       <form>
+        <fieldset class="d-f">
+          <input type="text" placeholder="Nombre" />
+          <input type="text" placeholder="Apellidos" />
+        </fieldset>
 
-          <fieldset class="d-f">
-            <input type="text" placeholder="Nombre" />
-            <input type="text" placeholder="Apellidos" />
-          </fieldset>
+        <fieldset class="d-f">
+          <input type="date" />
+          <select name="sexo">
+            <option value="m">Masculino</option>
+            <option value="f">Femenino</option>
+          </select>
+        </fieldset>
 
+        <fieldset class="d-f">
+          <textarea rows="3" placeholder="Clínica"></textarea>
+        </fieldset>
 
-          <fieldset class="d-f">
-            <input type="date" />
-            <select name="sexo">
-              <option value="m">Masculino</option>
-              <option value="f">Femenino</option>
-            </select>
-          </fieldset>
-
-          <fieldset class="d-f">
-            <textarea name="" id="" cols="30" rows="3"></textarea>
-          </fieldset>
-
+        <fieldset class="d-f jc-fs ai-c mb10">
+          <input type="checkbox" id="cb1" /><label for="cb1"
+            >Recorte Alineadores</label
+          >
+        </fieldset>
+        <fieldset class="d-f jc-fs ai-c mb10">
+          <input type="checkbox" id="cb2" /><label for="cb2"
+            >¿SecretRetainer?</label
+          >
+        </fieldset>
+        <div class="w100 mt20 mb20 px5 d-f ai-c jc-sb">
+          <BaseButton small text="Guardar" />
+          <BaseButton small text="Cancelar" />
+          <BaseButton small text="Limpiar" />
+        </div>
       </form>
     </BaseModal>
   </div>
@@ -125,6 +141,17 @@ export default {
           );
         });
       }
+    },
+    pacientesArrCSV: function () {
+      return this.pacientesArrFiltered.map((el) => {
+        return {
+          Nombre: el.datos_paciente.nombre,
+          Apellidos: el.datos_paciente.apellidos,
+          Clinica: el.ficha_dental.clinica,
+          "Objetivo tratamiento": el.ficha_dental.objetivo_tratamiento,
+          Estado: el.ficha_dental.estado,
+        };
+      });
     },
   },
   methods: {

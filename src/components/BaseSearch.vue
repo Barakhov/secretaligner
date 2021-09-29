@@ -46,18 +46,9 @@ export default {
   }
 
   &__input {
-    width: 100%;
-    max-width: 530px;
-    background-color: $clr-light-grey;
-    border-radius: 7px;
+    border-radius: 5px;
     padding: 15px 15px 15px 60px;
-    border: none;
-
-    &:focus-visible {
-      outline: none;
-      box-shadow: 0px 0px 4px -2px $clr-dark-grey;
-      background-color: $clr-light-grey;
-    }
+    margin-bottom: 0;
   }
 }
 </style>

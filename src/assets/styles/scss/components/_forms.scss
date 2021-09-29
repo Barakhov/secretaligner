@@ -1,20 +1,23 @@
 fieldset {
   padding: 0;
   margin: 0;
-  border-color: transparent;
+  border: 0;
   outline: none;
 }
 
+label {
+  cursor: pointer;
+}
+
 input,
-option,
 select,
 textarea {
   box-sizing: border-box;
-  font-family: n;
+  font-family: inherit;
   font-size: inherit;
   line-height: 1.5;
-  margin: 0 10px;
-  padding: 3px 10px;
+  margin: 0 5px 10px;
+  padding: 5px 10px;
   width: 100%;
   height: auto;
   display: block;
@@ -22,13 +25,16 @@ textarea {
   outline: none;
   background-color: $clr-light-grey;
   border-radius: 3px;
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0px 0px 4px -2px $clr-dark-grey;
+    background-color: $clr-light-grey;
+  }
 }
 
-input[type="text"],
-input[type="search"],
-select,
-textarea {
-  // border: solid 1px $clr-dark-grey;
-  // height: 2em;
-  // min-width: 12em;
+input[type="checkbox"] {
+  width: auto;
+  margin-bottom: 0;
 }
+

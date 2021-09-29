@@ -22,20 +22,6 @@
         {{ item.items }}
       </li>
     </ul>
-    <p>
-      {{ currentPage }}
-      of
-      {{ totalPages }}
-    </p>
-    <ul>
-      <li
-        v-for="page in totalPages"
-        :key="page"
-        :class="currentPage === page ? 'selected' : ''"
-      >
-        <span @click="setPage(page)">{{ page }}</span>
-      </li>
-    </ul>
     <ul
       class="table"
       :class="viewMode === 'table' ? 'table--table-view' : 'table--cards-view'"
@@ -124,6 +110,25 @@
         </div>
       </li>
     </ul>
+
+    <!-- <p>
+      {{ currentPage }}
+      of
+      {{ totalPages }}
+    </p> -->
+
+    <div class="d-f ai-c jc-c">
+      <ul class="table-pagination d-f ai-c jc-se">
+        <li
+          v-for="page in totalPages"
+          :key="page"
+          :class="currentPage === page ? 'selected' : ''"
+          class="table-pagination__item"
+        >
+          <span @click="setPage(page)">{{ page }}</span>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -187,7 +192,7 @@ export default {
       return (this.currentPage - 1) * this.itemsPerPage;
     },
     sliceEnd: function () {
-      return (this.currentPage - 1) * this.itemsPerPage + this.itemsPerPage - 1;
+      return (this.currentPage - 1) * this.itemsPerPage + this.itemsPerPage;
     },
   },
 };
@@ -360,6 +365,42 @@ export default {
   }
   &--solicitado {
     background-color: $clr-solicitado;
+  }
+}
+
+.table-pagination {
+  padding: 0;
+
+  &__item {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    text-align: center;
+    line-height: 50px;
+    border-top: 1px solid $clr-mid-grey;
+    border-bottom: 1px solid $clr-mid-grey;
+
+    &:first-child {
+      border-left: 1px solid $clr-mid-grey;
+      border-top-left-radius: 10px;
+      border-bottom-left-radius: 10px;
+    }
+    &:last-child {
+      border-right: 1px solid $clr-mid-grey;
+      border-top-right-radius: 10px;
+      border-bottom-right-radius: 10px;
+    }
+
+    &.selected {
+      background-color: $clr-primary;
+      color: $clr-white;
+    }
+
+    span {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
   }
 }
 </style>
